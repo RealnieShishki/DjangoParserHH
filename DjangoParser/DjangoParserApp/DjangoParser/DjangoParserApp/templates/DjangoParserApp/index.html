@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+Parser HH
+{% endblock %}
+
+{% block content %}
+    <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+        <div class="m-4 m-lg-5">
+            <form method="post" id="contactForm">
+            {% csrf_token %}
+            {{ form.as_p }}
+                <br>
+            <a class="btn btn-primary btn-lg" href="{% url 'parser:result' %}">Поиск</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
