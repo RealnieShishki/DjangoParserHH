@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+Parser HH
+{% endblock %}
+
+{% block content %}
+    <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+        <div class="m-4 m-lg-5">
+            {{res.as_p}}
+            {% for item in vs %}
+            <ul>
+                {{item.as_p}}
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
