@@ -1,38 +1,38 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse_lazy
 
-from .models import Request, ReqForm, VacSkill, Area
+from .models import Request, VacSkill, Area
+from .forms import ReqForm
 from DjangoParserApp.management.commands.fill_db import Command
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import ContextMixin
 
 
 def main_view(request):
-    return render(request, 'DjangoParserApp/index.html')
-
-def result(request):
     if request.method == 'POST':
         form = ReqForm(request.POST)
-        if form.is_valid():
-            vac = form.cleaned_data['vacancy']
-            area = form.cleaned_data['area']
-            print(vac, area, sep='\n')
-            com = Command(vac, area)
-            com.handle()
-            res = Request.objects.get(Vac_name=vac, Area_name=area)
-            vs = VacSkill.objects.filter(id_word_id=vac.id).all()
-            print(res, vs, sep='\n')
-            return render(request, 'DjangoParserApp/result.html', context={'res': res, 'vs': vs})
-        else:
-            form1 = ReqForm
-            return render(request, 'DjangoParserApp/index.html', context={'form': form1})
+        return render(request, 'DjangoParserApp/index.html', context={'form': form})
     else:
-        form1 = ReqForm
-        return render(request, 'DjangoParserApp/index.html', context={'form': form1})
+        return render(request, 'DjangoParserApp/index.html')
+
+def result(request, form):
+    if form.is_valid():
+        vac = form.cleaned_data['vacancy']
+        area = form.cleaned_data['area']
+        print(vac, area, sep='\n')
+        com = Command(vac, area)
+        com.handle()
+        res = Request.objects.get(Vac_name=vac, Area_name=area)
+        vs = VacSkill.objects.filter(id_vac_id=vac.id).all()
+        print(res, vs, sep='\n')
+        return render(request, 'DjangoParserApp/result.html', context={'res': res, 'vs': vs})
+    else:
+        form = ReqForm
+        return render(request, 'DjangoParserApp/index.html', context={'form': form})
 
 def about(request):
 
-    contacts = [['пр-т Победы д.9 '], ['+7905194524022022'], ['ZOV@vsem.planeta']]
+    contacts = 'пр-т Победы д.9 ', '+79051945', 'potato@free.com'
 
     return render(request, 'DjangoParserApp/about.html', context={'contacts': contacts})
 

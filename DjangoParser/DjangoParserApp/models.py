@@ -1,5 +1,5 @@
 from django.db import models
-from django import forms
+
 
 # Create your models here.
 class Skills(models.Model):
@@ -45,9 +45,6 @@ class VacSkill(models.Model):
     count = models.FloatField()
     percent = models.FloatField()
 
-class ReqForm(forms.Form):
-    vacancy = forms.CharField(label='Вакансия')
-    area = forms.CharField(label='Город')
 
 
 
