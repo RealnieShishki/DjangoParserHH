@@ -39,6 +39,12 @@ class Request(models.Model):
     Up = models.FloatField()
     Down = models.FloatField()
 
+    def some_method(self):
+        return 'hello from method'
+
+    def __str__(self):
+        return f'{self.Vac_name}, {self.Area_name}'
+
 class VacSkill(models.Model):
     id_vac = models.ForeignKey(Vacancy, on_delete=models.CASCADE)
     id_skill = models.ForeignKey(Skills, on_delete=models.CASCADE)
