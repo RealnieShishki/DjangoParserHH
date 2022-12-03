@@ -1,4 +1,4 @@
-
+import p as p
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -8,7 +8,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('DjangoParserApp.urls', namespace='parser')),
-    path('users/', include('userapp.urls', namespace='users'))
+    path('users/', include('userapp.urls', namespace='users')),
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 if settings.DEBUG:
